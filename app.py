@@ -1,8 +1,18 @@
 
+import os
 import requests
 
 def fetch_data(url):
-    # Vulnerabilidad SAST: Uso de credenciales hardcodeadas
-    api_key = "12345-SUPER-SECRET-KEY"
-    response = requests.get(f"{url}?key={api_key}")
+    api_key = os.environ.get("API_KEY")
+
+    if not api_key:
+        raise ValueError("La variable API_KEY no está configurada")
+
+    response = requests.get(
+        url,
+        params={"key": api_key},
+        timeout=10
+    )
+
+    response.raise_for_status()
     return response.json()
