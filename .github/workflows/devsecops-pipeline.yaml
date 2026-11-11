@@ -31,7 +31,7 @@ jobs:
         id: bandit
         continue-on-error: true
         run: |
-          bandit -r . -lll -f custom
+           bandit -r . -ll -f custom
 
       - name: Analisis SCA con Safety
         id: safety
